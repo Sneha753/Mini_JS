@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO list</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            background: rgb(193, 156, 228);
+        }
+        h1 {
+            font-size: 70px;
+            color: rgb(55, 7, 101);
+            text-align: center;
+            margin-top: 30px;
+        }
+        .container {
+            border: 1px solid black;
+            width: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .newtask {
+            background-color: #ffffff;
+            padding:30px 20px;
+            border-radius: 5px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .newtask input {
+            width: 70%;
+            height: 45px;
+            font-size: 18px;
+            border: 2px solid black;
+            font-weight: 500;
+            color: black;
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .newtask input:focus{
+            outline: none;
+            border-color: blueviolet;
+        }
+
+        .newtask button {
+            position: relative;
+            border-radius : 5px;
+            float: right;
+            width: 25%;
+            height: 40px;
+            font-weight: 500;
+            font-size: 20px;
+            background-color: blueviolet;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        #tasks {
+            background-color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin-top: 60px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 15px 3px rgba(0,0,0,0.5);
+        }
+
+        .task {
+            background-color: #ffffff;
+            height: 50px;
+            padding: 5px 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid blueviolet ;
+            cursor: pointer;
+        }
+
+        .task span {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .task button {
+            background-color: blueviolet;
+            color: #ffffff;
+            height: 100%;
+            width: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1>TO-DO List</h1>
+    <div class="container">
+        <div class="newtask">
+            <input type="text" placeholder="Task to be done!">
+            <button id="push">Add</button>
+        </div>
+        <div id="tasks">
+
+        </div>
+    </div>
+    <script>
+        document.querySelector('#push').onclick = function (){
+            if(document.querySelector('.newtask input').value.length == 0){
+                alert("Please enter a task!");
+            }
+
+            else {
+                document.querySelector('#tasks').innerHTML += `
+                <div class="task">
+                    <span id="taskname">
+                        ${document.querySelector('.newtask input').value}
+                    </span>
+                    <button class="delete">Delete</button>
+                </div>
+                `;
+            var current_tasks = document.querySelectorAll(".delete");
+            for(var i=0; i<current_tasks.length; i++){
+                current_tasks[i].onclick = function() {
+                    this.parentNode.remove();
+                }
+            }
+
+            var tasks = document.querySelectorAll('.task');
+            for(var i=0; i<tasks.length; i++){
+                tasks[i].onclick = function() {
+                    this.classList.toggle('completed');
+                }
+            }
+            document.querySelector(".newtask input").value = "";
+            }
+
+        }
+    </script>
+</body>
+</html>
